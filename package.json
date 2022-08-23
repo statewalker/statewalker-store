@@ -1,0 +1,48 @@
+{
+  "name": "@statewalker/store",
+  "version": "0.1.0",
+  "description": "A simple Data Store for in-app state management",
+  "keywords": [],
+  "homepage": "https://github.com/statewalker/statewalker-store",
+  "author": {
+    "name": "Mikhail Kotelnikov",
+    "email": "mikhail.kotelnikov@gmail.com"
+  },
+  "type": "module",
+  "files": [
+    "dist/**/package.json",
+    "dist/**/*.js",
+    "src/**/*.js",
+    "index.js"
+  ],
+  "devDependencies": {
+    "@statewalker/rollup": "https://github.com/statewalker/statewalker-rollup.git#^v0.1"
+  },
+  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "jsdelivr": "dist/index-umd.min.js",
+  "unpkg": "dist/index-umd.min.js",
+  "exports": {
+    "umd": "./dist/index-umd.min.js",
+    "default": "./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/statewalker/statewalker-store.git"
+  },
+  "scripts": {
+    "eslint": "eslint src",
+    "rollup": "rollup -c",
+    "test": "mocha -R spec ./test/index.js && yarn eslint",
+    "prepublishOnly": "rm -rf dist && yarn test && yarn rollup"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@statewalker/ns": "^0.1.0",
+    "@statewalker/utils": "^0.1.0"
+  }
+}
