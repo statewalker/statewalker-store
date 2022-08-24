@@ -43,6 +43,6 @@
   },
   "dependencies": {
     "@statewalker/ns": "^0.1.0",
-    "@statewalker/utils": "^0.1.0"
+    "@statewalker/utils": "^0.2.0"
   }
 }
