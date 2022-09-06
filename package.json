@@ -1,6 +1,6 @@
 {
   "name": "@statewalker/store",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A simple Data Store for in-app state management",
   "keywords": [],
   "homepage": "https://github.com/statewalker/statewalker-store",
@@ -16,7 +16,7 @@
     "index.js"
   ],
   "devDependencies": {
-    "@statewalker/rollup": "^0.1.4",
+    "@statewalker/rollup": "^0.1.5",
     "eslint": "^8",
     "expect.js": "^0.3",
     "mocha": "^10",
@@ -44,6 +44,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@statewalker/utils": "^0.2.3"
+    "@statewalker/utils": "^0.2.4"
   }
 }
