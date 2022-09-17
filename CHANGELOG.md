@@ -1,5 +1,13 @@
 # @statewalker/store
 
+## 0.3.1
+
+### Patch Changes
+
+- Normalize package.json files
+- Updated dependencies
+  - @statewalker/utils@0.3.1
+
 ## 0.3.0
 
 ### Minor Changes
