@@ -1,5 +1,11 @@
 # @statewalker/store
 
+## 0.4.0
+
+### Minor Changes
+
+- Add completion callbacks to the observe methods
+
 ## 0.3.1
 
 ### Patch Changes
