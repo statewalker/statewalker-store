@@ -104,3 +104,103 @@ describe("newStore - selects (derived values)", () => {
     expect(sum).be(undefined);
   });
 })
+
+describe("newStore - observe fields changes", () => {
+  it(`#observe - provide an async iterator over changes`, async () => {
+    const store = newStore({ counter: 0 });
+    const control = Array.from({ length: 10 }).map((_, id) => id + 1)
+    let done = false, error;
+
+    const promise = (async () => {
+      try {
+        for (let value of control) {
+          await new Promise(r => setTimeout(r, 5 * Math.random()));
+          store.set("counter", value);
+        }
+      } catch (e) {
+        error = e;
+      } finally {
+        done = true;
+      }
+    })();
+
+
+    const list = [];
+    for await (let value of store.observe("counter")) {
+      list.push(value);
+      if (done) break;
+    }
+    expect(list).to.eql([0, ...control]);
+    await promise;
+    expect(error).to.be(undefined);
+  });
+
+
+  it(`#observe - allow to apply transformations to returned values`, async () => {
+    let char = 'a'.charCodeAt(0);
+    const transform = (v) => v.toUpperCase();
+
+    const values = Array.from({ length: 10 }).map((_, id) => (`Hello-${id}`));
+    const control = values.map(transform);
+
+    const store = newStore({ message : values[0] });
+    let done = false, error;
+
+    (async () => {
+      try {
+        for (let value of values) {
+          await new Promise(r => setTimeout(r, 5 * Math.random()));
+          store.set("message", value);
+        }
+      } catch (e) {
+        error = e;
+      } finally {
+        done = true;
+      }
+    })();
+
+
+    const results = [];
+    for await (let str of store.observe("message", transform)) {
+      results.push(str);
+      if (done) break;
+    }
+    expect(results).to.eql(control);
+  });
+
+  it(`#observe - allow to listen multiple fields`, async () => {
+    let char = 'a'.charCodeAt(0);
+    const transform = (v) => (v.message + ':' + v.id).toUpperCase();
+
+    const values = Array.from({ length: 10 }).map((_, id) => ({
+      id: String.fromCharCode(char++),
+      message: "Hello - " + (id + 1)
+    }));
+    const control = values.map(transform);
+
+    const store = newStore({ ...values[0] });
+    let done = false, error;
+
+    (async () => {
+      try {
+        for (let value of values) {
+          await new Promise(r => setTimeout(r, 5 * Math.random()));
+          store.setAll(value);
+        }
+      } catch (e) {
+        error = e;
+      } finally {
+        done = true;
+      }
+    })();
+
+
+    const results = [];
+    for await (let str of store.observe(["id", "message"], transform)) {
+      results.push(str);
+      if (done) break;
+    }
+    expect(results).to.eql(control);
+  });
+
+})
