@@ -1,5 +1,11 @@
 # @statewalker/store
 
+## 0.5.0
+
+### Minor Changes
+
+- Update the store api - add the observe method
+
 ## 0.4.1
 
 ### Patch Changes
